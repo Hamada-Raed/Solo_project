@@ -4,11 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/logregister.css' %}">
     <title>Login & Registration</title>
 </head>
 
 <body>
-    <h1>hi</h1>
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group" action="login" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="User Name" class="input-field">
+                <input type="text" placeholder="Enter password" class="input-field">
+                <input type="submit" value="Log in" class="submit-btn">
+            </form>
+            <form id="register" class="input-group" action="register" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="User Name" class="input-field">
+                <input type="text" placeholder="Email" class="input-field">
+                <input type="text" placeholder="Password" class="input-field">
+                <input type="text" placeholder="Confirm assword" class="input-field">
+                <input type="submit" value="Register" class="submit-btn">
+            </form>
+        </div>
+    </div>
+    <script>
+        var x = document.getElementById('login')
+        var y = document.getElementById('register')
+        var z = document.getElementById('btn')
+        function register(){
+            x.style.left = '-400px'
+            y.style.left = '50px'
+            z.style.left = '110px'
+        }
+        function login() {
+            x.style.left = '50px'
+            y.style.left = '-400px'
+            z.style.left = '0px'
+        }
+    </script>
 </body>
 
 </html>
