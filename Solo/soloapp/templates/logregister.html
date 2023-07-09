@@ -17,19 +17,30 @@
                 <button type="button" class="toggle-btn" onclick="login()">Log In</button>
                 <button type="button" class="toggle-btn" onclick="register()">Register</button>
             </div>
-            <form id="login" class="input-group" action="login" method="post">
+            <form id="register" class="input-group" action="/register" method="post">
                 {% csrf_token %}
-                <input type="text" placeholder="User Name" class="input-field">
-                <input type="text" placeholder="Enter password" class="input-field">
-                <input type="submit" value="Log in" class="submit-btn">
-            </form>
-            <form id="register" class="input-group" action="register" method="post">
-                {% csrf_token %}
-                <input type="text" placeholder="User Name" class="input-field">
-                <input type="text" placeholder="Email" class="input-field">
-                <input type="text" placeholder="Password" class="input-field">
-                <input type="text" placeholder="Confirm assword" class="input-field">
+                <input type="text" name="username" placeholder="User Name" class="input-field">
+                <input type="text" name="email" placeholder="Email" class="input-field">
+                <input type="password" name="password" placeholder="Password" class="input-field">
+                <input type="password" name="password_conf" placeholder="Confirm assword" class="input-field">
                 <input type="submit" value="Register" class="submit-btn">
+                <div id="error_messages">
+                </div>
+            </form>
+            <form id="login" class="input-group" action="/login" method="post">
+                {% csrf_token %}
+                <input type="text" name="email" placeholder="Email" class="input-field">
+                <input type="password" name="password" class="input-field" placeholder="Enter password">
+                <input type="submit" value="Log in" class="submit-btn">
+                <div id="error_messages">
+                    {% if messages %}
+                    <ul style="color: red; list-style-type: none;">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
             </form>
         </div>
     </div>
@@ -37,7 +48,7 @@
         var x = document.getElementById('login')
         var y = document.getElementById('register')
         var z = document.getElementById('btn')
-        function register(){
+        function register() {
             x.style.left = '-400px'
             y.style.left = '50px'
             z.style.left = '110px'

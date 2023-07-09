@@ -22,22 +22,25 @@
             <a href="#">LogOut</a>
         </div>
         <br><br><br><br><br><br><br><br><br>
-        <h3>Welcome Hamada</h3>
+        <h3>Welcome {{users}}</h3>
         <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
     <div class="contant">
         <header>
             <h1>Top Questions</h1>
-            <a href="#"><button>Add Question</button></a>
+            <a href="/addQuestion"><button>Add Question</button></a>
         </header>
         <hr>
-        <div >
+        {% for question in questions%}
+        <div>
             <ul class="qusestions">
-                <li><a href="#">Title</a></li>
-                <li>Created Date</li>
+                <li><a href="/anwser/{{question.id}}">{{question.message_text}}</a></li>
+                <li>created by {{users}}</li>
+                <li>{{question.created_at}}</li>
             </ul>
             <hr>
         </div>
+        {% endfor %}
     </div>
 
 

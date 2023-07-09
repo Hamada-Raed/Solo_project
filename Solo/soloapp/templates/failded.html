@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Faild!</h1>
+        <p>Please check these massages</p>
+        {% if messages %}
+        <ul class="list">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <a href="/signin" class="button">Try again</a>
+    </div>
+</body>
+
+</html>

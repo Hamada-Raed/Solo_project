@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Questions</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/addQuestion.css' %}">
+</head>
+
+<body>
+    <div class="sidenav">
+        <a href="/">
+            <h1 id="label">E<span id="word">by</span>S</h1>
+        </a>
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="/aboutus">About Us</a>
+            <a href="/QandA">Qs & As</a>
+            <a href="#">Article</a>
+            <a href="#">LogOut</a>
+        </div>
+        <br><br><br><br><br>
+        <h3>Welcome {{users}}</h3>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <div class="container">
+        <div class="box1">
+            <h1>Ask a public question</h1>
+            <h2>Writing a good question</h2>
+            <h4>A well-crafted question stimulates critical thinking and promotes deeper engagement with a subject
+                matter. By carefully
+                considering the wording and structure of a question, it encourages individuals to analyze and understand
+                the topic from
+                different angles, fostering intellectual growth and expanding one's knowledge base</h4>
+            <h2>steps</h2>
+            <ul>
+                <li>Summarize your problem in a one-line title.</li>
+                <li>Describe your problem in more detail.</li>
+                <li>Describe what you tried and what you expected to happen.</li>
+                <li>Add “tags” which help surface your question to members of the community.</li>
+                <li>Review your question and post it to the site.</li>
+            </ul>
+        </div>
+        <div class="box2">
+            <form action="addQ" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td>Title</td>
+                    </tr>
+                    <tr>
+                        <td>Be specific and imagine you're asking a question to another person.</td>
+                    </tr>
+                </table>
+                <textarea type="text" name="message_text" placeholder="Write your Question"></textarea>
+                <input class="btn" type="submit" value="Ask">
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
