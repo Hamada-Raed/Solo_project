@@ -2,21 +2,26 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    # display pages
-    path('', views.index),
-    path('aboutus', views.aboutus),
-    path('QandA', views.QandA),
-    path('all_subject', views.all_subject),
-    path('signin', views.signin),
+    # display
+    path('', views.index), 
+    path('displayAboutUs', views.displayAboutUs), 
     path('success' ,views.success),
     path('failded', views.failded),
+    #Log in and reigtration process
+    path('signin', views.signin),
+    path('register', views.register), 
+    path('login', views.login), 
+    #add question process
+    path('displayAllQuestion', views.displayAllQuestion),
+    path('displayFormQuestion', views.displayFormQuestion),
     path('addQuestion', views.addQuestion),
-
-    #functions 
-    path('register', views.register),
-    path('login', views.login),
-    path('addQ', views.addQ),
-    path('anwser/<question_id>', views.anwser),
-    # path('addAnswer', views.addAnswer),
+    #add answer process
+    path('displayAnswerFrom/<question_id>', views.displayAnswerFrom), 
+    path('addAnswer/<question_id>', views.addAnswer),
+    #modifiy ex edit and delete
+    path('modifiy/<comment_id>', views.modifiy)
+   
+    
+    
 
 ]

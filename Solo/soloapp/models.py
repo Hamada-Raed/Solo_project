@@ -31,11 +31,11 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    objects = UserManager()
+    objects = UserManager() 
 
-
-class Message(models.Model):
+class Question(models.Model):
     message_text = models.TextField()
+    desc = models.TextField()
     user = models.ForeignKey(User, related_name='messages', on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -43,6 +43,6 @@ class Message(models.Model):
 class Comment(models.Model):
     comment_text = models.TextField()
     user = models.ForeignKey(User, related_name='comments', on_delete = models.CASCADE)
-    message = models.ForeignKey(Message, related_name='comments', on_delete = models.CASCADE)
+    question = models.ForeignKey(Question, related_name='comments', on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

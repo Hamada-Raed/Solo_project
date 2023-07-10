@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answers</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/answer.css' %}">
+</head>
+
+<body>
+    <div class="sidenav">
+        <a href="/">
+            <h1 id="label">E<span id="word">by</span>S</h1>
+        </a>
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="/aboutus">About Us</a>
+            <a href="/displayAllQuestion">Qs & As</a>
+            <a href="#">Article</a>
+            <a href="#">LogOut</a>
+        </div>
+        <br><br><br><br><br>
+        <h3>Welcome {{user.username}}</h3>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <div class="container">
+        <h1>{{question.message_text}}</h1>
+        <h2>Description</h2>
+        <p>{{question.desc}}</p>
+
+        {% for comment in question.comments.all%}
+        <div class="box">
+            <h3>Answer by {{comment.user.username}}:</h3>
+            <h5>Created at {{comment.created_at}}</h5>
+            <ol>
+                <li>{{comment.comment_text}}</li>
+            </ol>
+            {% if comment.user.id != user.id %}
+            <form action="modifiy">
+                {% csrf_token %}
+                <input class="btn" type="submit" value="Post" name="addComment">
+            </form>
+            {% endif %}
+            {% if comment.user.id == user.id %}
+            <form action="/modifiy/{{comment.id}}">
+                {% csrf_token %}
+                <input class="btn" type="submit" value="Edit" name="edit">
+                <input class="btn" type="submit" value="Delete" name="delete">
+            </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="box">
+            <form action="/addAnswer/{{question.id}}" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td>Your answer</td>
+                    </tr>
+                </table>
+                <textarea type="text" name="comment_text" placeholder="Write your answer"></textarea>
+                <input class="btn" type="submit" value="Answer">
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
