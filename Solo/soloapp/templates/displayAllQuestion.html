@@ -4,44 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questions and Answers</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/QandA.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#icon').click(function () {
+                $('ul').toggleClass('show');
+            });
+        });
+    </script>
+    <title>Questions and Answers | KnowledgeSphere </title>
 </head>
 
 <body>
-    <div class="sidenav">
-        <a href="/">
-            <h1 id="label">E<span id="word">by</span>S</h1>
-        </a>
-        <div class="links">
-            <a href="/">Home</a>
-            <a href="/displayAboutUs">About Us</a>
-            <a href="/displayAllQuestion">Qs & As</a>
-            <a href="/all_subject">Courses</a>
-            <a href="/destroy">LogOut</a>
-        </div>
-        <br><br><br><br><br><br><br><br><br>
-        <h3>Welcome {{user.username}}</h3>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
-    <div class="contant">
-        <header>
-            <h1>Top Questions</h1>
-            <a href="/displayFormQuestion"><button>Add Question</button></a>
-        </header>
-        <hr>
-        {% for question in questions%}
-        <div>
-            <ul class="qusestions">
-                <li><a href="/displayAnswerFrom/{{question.id}}">{{question.message_text}}</a></li>
-                <li>Created by {{question.user.username}}</li>
-                <li>{{question.created_at}}</li>
+    <main>
+        <nav>
+            <label class="logo">KnowledgeSphere</label>
+            <ul>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/displayAboutUs">About us</a></li>
+                <li><a href="displayAllQuestion">Question and Answer</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Sign in</a></li>
             </ul>
-            <hr>
+            <label id="icon">
+                <i class="fa fa-bars"></i>
+            </label>
+        </nav>
+        <section>
+            <header>
+                <div>
+                    <h1>Discussions and Debates:</h1>
+                    <h3>Expand your knowledge and surprise others with intriguing nuggets of information. Intellectual Discourse: Engage in thought-provoking discussions and debates on a wide range of
+                        topics, such as
+                        philosophy, ethics, politics, social issues, and more. Explore diverse perspectives, challenge
+                        your own beliefs, and
+                        contribute to meaningful conversations.</h3>
+                </div>
+            </header>
+        </section>
+        <div class="container">
+            <div class="content">
+                <nav>
+                    <label class="logo">Welcome, {{user.username}}</label>
+                    <ul>
+                        <li><a href="/displayFormQuestion" class="active">Add Question</a></li>
+                        <li><a href="#">Users</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                    <label id="icon">
+                        <i class="fa fa-bars"></i>
+                    </label>
+                    <hr>
+                </nav>
+                {% for question in questions%}
+                <div class="question">
+                    <ul class="listQuestion">
+                        <h2>Created by: {{question.user.username}}, {{question.created_at}}</h2>
+                        <a href="#">
+                            <h3>{{question.message_text}}</h3>
+                        </a>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
-    </div>
+    </main>
+    <footer>
+
+    </footer>
+
+
 </body>
 
 </html>

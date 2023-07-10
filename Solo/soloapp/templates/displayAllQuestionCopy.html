@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#icon').click(function () {
+                $('ul').toggleClass('show');
+            });
+        });
+    </script>
+    <title>Questions and Answers | KnowledgeSphere </title>
+</head>
+
+<body>
+    <main>
+        <nav>
+            <label class="logo">KnowledgeSphere</label>
+            <ul>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/displayAboutUs">About us</a></li>
+                <li><a href="displayAllQuestion">Question and Answer</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Sign in</a></li>
+            </ul>
+            <label id="icon">
+                <i class="fa fa-bars"></i>
+            </label>
+        </nav>
+        <section>
+            <header>
+                <div>
+                    <h1>Share & grow the world's knowledge</h1>
+                    <h3>We want to connect the people who have knowledge to people who need it, to bring</h3>
+                    <h3>together people with different perspectives so they can understand each other better,
+                    </h3>
+                    <h3>and to empower everyone to share their knowledge </h3>
+                </div>
+            </header>
+        </section>
+        <div class="container">
+            <div class="content">
+                <nav>
+                    <label class="logo">Welcome, {{user.username}}</label>
+                    <ul>
+                        <li><a href="/" class="active">Recent Questions</a></li>
+                        <li><a href="#">Users</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                    <label id="icon">
+                        <i class="fa fa-bars"></i>
+                    </label>
+                    <hr>
+                </nav>
+                {% for question in questions%}
+                <div class="question">
+                    <ul class="listQuestion">
+                        <h2>Created by: {{question.user.username}}, {{question.created_at}}</h2>
+                        <a href="#">
+                            <h3>{{question.message_text}}</h3>
+                        </a>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+
+
+</body>
+
+</html>

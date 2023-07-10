@@ -19,8 +19,8 @@ urlpatterns = [
     path('displayAnswerFrom/<question_id>', views.displayAnswerFrom), 
     path('addAnswer/<question_id>', views.addAnswer),
     #modifiy ex edit and delete
-    path('modifiy/<comment_id>', views.modifiy)
-   
+    path ('delete/<comment_id>/<question_id>', views.delete), 
+    path('displayEdit/<comment_id>', views.displayEdit), 
     
     
 

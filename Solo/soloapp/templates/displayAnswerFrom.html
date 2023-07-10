@@ -44,11 +44,8 @@
             </form>
             {% endif %}
             {% if comment.user.id == user.id %}
-            <form action="/modifiy/{{comment.id}}">
-                {% csrf_token %}
-                <input class="btn" type="submit" value="Edit" name="edit">
-                <input class="btn" type="submit" value="Delete" name="delete">
-            </form>
+            <a href="/displayEdit/{{comment.id}}"><input class="btn" type="submit" value="Edit"></a>
+            <a href="/delete/{{comment.id}}/{{question.id}}"><input class="btn" type="submit" value="Delete"></a>
             {% endif %}
         </div>
         {% endfor %}

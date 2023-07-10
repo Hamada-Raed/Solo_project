@@ -4,46 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | EbyS</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/aboutus.css' %}">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#icon').click(function () {
+                $('ul').toggleClass('show');
+            });
+        });
+    </script>
+    <title>About us | KnowledgeSphere</title>
 </head>
 
 <body>
-    <div class=container>
-        
+    <main>
         <nav>
+            <label class="logo">KnowledgeSphere</label>
             <ul>
-                <li><h1 id="label">E<span id="word">by</span>S</h1></li>
-                <li><a href="/">Home</a></li>
-                <li><a href="/displayAboutUs">About Us</a></li>
-                <li class="dropdown">
-                    <a href="/all_subject" class="dropbtn">Courses</a>
-                    <div class="dropdown-content">
-                        <p>Courses by Subjects</p>
-                        <a href="#">Math</a>
-                        <a href="#">Physics</a>
-                        <a href="#">Biology</a>
-                        <a href="/all_subject">All Subjects</a>
-                    </div>
-                <li><a href="/displayAllQuestion">Qs <span class="letters">&</span> As</a></li>
-                </li>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/displayAboutUs">About us</a></li>
+                <li><a href="/">Question and Answer</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Sign in</a></li>
             </ul>
+            <label id="icon">
+                <i class="fa fa-bars"></i>
+            </label>
         </nav>
-    <section class="skewbox">
-        <div class="content">
-            <h1>About us</h1>
-            <h3>EbyS is the online learning platform from world-leading digital education.</h3>
-            <h3>We are committed to providing an inclusive and supportive learning environment. We strive to create content that is accessible to learners with diverse learning styles and abilities.</h3>
-                <h3>Our website is user-friendly, with intuitive
-                navigation and features that make learning engaging and interactive.</h3></h3>
-        </div>
-        <div class="imagebox">
-            <h1>Start Learning </h1>
-            <h2>with EbyS</h2>
+        <section>
+            <header>
+                <div>
+                    <h1>About us</h1>
+                    <h3>Welcome to our KnowledgeSphere website, a platform designed to connect people from all walks of
+                        life by facilitating the
+                        exchange of knowledge and expertise.
+                        This platform is built upon the principle that everyone has valuable insights and experiences to
+                        share, and by harnessing the collective wisdom of our community, we can find answers to a wide range of questions. Whether
+                        you're seeking information, looking to share your expertise, or simply enjoy engaging in intellectual discussions,
+                        you've come to the right place.
 
-        </div>
-    </section>
+                    </h3>
+                </div>
+            </header>
+        </section>
+    </main>
+
 </body>
 
 </html>

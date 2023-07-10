@@ -3,8 +3,16 @@ from .models import *
 from django.contrib import messages
 
 def index(request): 
-    content = {
-        'user' : User.objects.get(id= request.session['user'])
+    orderedQuestion = Question.objects.order_by('-created_at')
+    listOfQuestion = []
+    index = 0 
+    while index < len(orderedQuestion) and index < 5 :
+        listOfQuestion.append(orderedQuestion[index])
+        index = index + 1 
+    content ={
+        'questions' : listOfQuestion,
+        'user' : User.objects.get(id=request.session['user']),
+        'comments' : Comment.objects.all(),
     }
     
     return render(request, 'index.html', content )
@@ -53,9 +61,11 @@ def failded(request):
 ######################### End LOGIN registration part ###########
 ######################### Add Question process and display ######
 def displayAllQuestion(request): 
+    orderedQuestion = Question.objects.order_by('-created_at')
     content ={
-        'questions' : Question.objects.all().order_by('-created_at'),
-        'user' : User.objects.get(id=request.session['user'])
+        'questions' : orderedQuestion,
+        'user' : User.objects.get(id=request.session['user']),
+
     }
     return render(request, 'displayAllQuestion.html', content)
 
@@ -71,7 +81,7 @@ def addQuestion(request):
             message_text = request.POST['message_text'],
             desc = request.POST['desc'],
             user = User.objects.get(id=request.session['user'])
-        ).orderd_by('created_at')
+        )
     return redirect('/displayQuestion')
 
 ####################### End Question part ########################
@@ -80,23 +90,29 @@ def displayAnswerFrom(request, question_id):
         'question' : Question.objects.get(id= question_id),
         'comments' : Comment.objects.all(),
         'user' : User.objects.get(id= request.session['user']),
-        'request' : request
-        
     }
     return render(request, 'displayAnswerFrom.html', content)
 
 def addAnswer(request, question_id):
-   if request.method == "POST":
+    print(question_id)
+    if request.method == "POST":
         Comment.objects.create(
             comment_text= request.POST['comment_text'],
             user = User.objects.get(id = request.session['user']),
-            question = Question.objects.get(id = question_id))
-
-        return redirect('/addAnswer/'+str(question_id))
+            question = Question.objects.get(id = question_id)
+        )
+        return redirect('/displayAnswerFrom/'+str(question_id))
 
 ##################### End Answer process and display ############### 
 ################### modifiy Edit and Delete ########################
 
-def modifiy(request, comment_id): 
-    if 
+def delete(request, comment_id, question_id): 
+        dell = Comment.objects.get(id=comment_id)
+        dell.delete()
+        return redirect('/displayAnswerFrom/'+str(question_id))
 
+def displayEdit(request, comment_id): 
+    content = {
+        'comments' : Comment.objects.get(id=comment_id)
+    }
+    return render(request, 'displayEdit.html')
