@@ -82,19 +82,18 @@ def addQuestion(request):
             desc = request.POST['desc'],
             user = User.objects.get(id=request.session['user'])
         )
-    return redirect('/displayQuestion')
+    return redirect('/displayAllQuestion')
 
 ####################### End Question part ########################
 def displayAnswerFrom(request, question_id):
     content = {
-        'question' : Question.objects.get(id= question_id),
+        'questions' : Question.objects.get(id= question_id),
         'comments' : Comment.objects.all(),
         'user' : User.objects.get(id= request.session['user']),
     }
     return render(request, 'displayAnswerFrom.html', content)
 
 def addAnswer(request, question_id):
-    print(question_id)
     if request.method == "POST":
         Comment.objects.create(
             comment_text= request.POST['comment_text'],
@@ -111,8 +110,16 @@ def delete(request, comment_id, question_id):
         dell.delete()
         return redirect('/displayAnswerFrom/'+str(question_id))
 
-def displayEdit(request, comment_id): 
+def displayEditForm(request, comment_id, question_id): 
     content = {
-        'comments' : Comment.objects.get(id=comment_id)
+        'user' : User.objects.get(id=request.session['user']),
+        'comments' : Comment.objects.get(id=comment_id),
+        'questions' : Question.objects.get(id=question_id),
     }
-    return render(request, 'displayEdit.html')
+    return render(request, 'displayEdit.html', content)
+
+def editQuestion(request, question_id): 
+    selected = Question.objects.get(id= question_id)
+    selected.message_text = request.POST['comment_text']
+
+

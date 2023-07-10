@@ -4,64 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Questions</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/addQuestion.css' %}">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#icon').click(function () {
+                $('ul').toggleClass('show');
+            });
+        });
+    </script>
+    <title>Add Question</title>
 </head>
 
 <body>
-    <div class="sidenav">
-        <a href="/">
-            <h1 id="label">E<span id="word">by</span>S</h1>
-        </a>
-        <div class="links">
-            <a href="/">Home</a>
-            <a href="/displayAboutUs">About Us</a>
-            <a href="/displayAllQuestion">Qs & As</a>
-            <a href="#">Article</a>
-            <a href="#">LogOut</a>
-        </div>
-        <br><br><br><br><br>
-        <h3>Welcome {{user.username}}</h3>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
-    <div class="container">
-        <div class="box1">
-            <h1>Ask a public question</h1>
-            <h2>Writing a good question</h2>
-            <h4>A well-crafted question stimulates critical thinking and promotes deeper engagement with a subject
-                matter. By carefully
-                considering the wording and structure of a question, it encourages individuals to analyze and understand
-                the topic from
-                different angles, fostering intellectual growth and expanding one's knowledge base</h4>
-            <h2>steps</h2>
+    <main>
+        <nav>
+            <label class="logo">KnowledgeSphere</label>
             <ul>
-                <li>Summarize your problem in a one-line title.</li>
-                <li>Describe your problem in more detail.</li>
-                <li>Describe what you tried and what you expected to happen.</li>
-                <li>Add “tags” which help surface your question to members of the community.</li>
-                <li>Review your question and post it to the site.</li>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/displayAboutUs">About us</a></li>
+                <li><a href="displayAllQuestion">Question and Answer</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Sign in</a></li>
             </ul>
+            <label id="icon">
+                <i class="fa fa-bars"></i>
+            </label>
+        </nav>
+        <section>
+            <header>
+                <div>
+                    <h1>Add a public Question</h1>
+                    <h3>Guidline to write a good question:</h3>
+                    <ol>
+                        <li>Summarize your problem in a one-line title.</li>
+                        <li>Describe your problem in more detail.</li>
+                        <li>Describe what you tried and what you expected to happen.</li>
+                        <li>Review your question and post it to the site.</li>
+                    </ol>
+                </div>
+            </header>
+        </section>
+        <div class="container">
+            <div class="content">
+                <nav>
+                    <label class="logo">Welcome, {{user.username}}</label>
+                    <ul>
+                        <li><a href="#">Users</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                    <label id="icon">
+                        <i class="fa fa-bars"></i>
+                    </label>
+                    <hr>
+                </nav>
+                <div class="questionForm">
+                    <div class="box">
+                        <form action="/addQuestion" method="post">
+                            {% csrf_token %}
+                            <table>
+                                <tr>
+                                    <td>Be specific and imagine you're asking a question to another person.</td>
+                                </tr>
+                            </table>
+                            <textarea type="text" name="message_text" placeholder="Title"></textarea>
+                            <textarea type="text" name="desc" placeholder="Description"></textarea>
+                            <input type="submit" value="Add" class="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="box2">
-            <form action="/addQuestion" method="post">
-                {% csrf_token %}
-                <table>
-                    <tr>
-                        <td>Title</td>
-                    </tr>
-                    <tr>
-                        <td>Be specific and imagine you're asking a question to another person.</td>
-                    </tr>
-                </table>
-                <textarea type="text" name="message_text" placeholder="Write the title"></textarea>
-                <textarea type="text" name="desc" placeholder="Description"></textarea>
-                <input class="btn" type="submit" value="Ask">
-            </form>
-        </div>
-    </div>
-
-
+    </main>
 </body>
 
 </html>

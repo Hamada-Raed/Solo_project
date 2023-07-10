@@ -51,7 +51,7 @@
                 <nav>
                     <label class="logo">Welcome, {{user.username}}</label>
                     <ul>
-                        <li><a href="/displayFormQuestion" class="active">Add Question</a></li>
+                        <li><a href="/displayFormQuestion" class="active">Ask Question</a></li>
                         <li><a href="#">Users</a></li>
                         <li><a href="#">Feedback</a></li>
                     </ul>
@@ -64,9 +64,7 @@
                 <div class="question">
                     <ul class="listQuestion">
                         <h2>Created by: {{question.user.username}}, {{question.created_at}}</h2>
-                        <a href="#">
-                            <h3>{{question.message_text}}</h3>
-                        </a>
+                        <a href="/displayAnswerFrom/{{question.id}}"><h3>{{question.message_text}}</h3></a>
                     </ul>
                 </div>
                 {% endfor %}

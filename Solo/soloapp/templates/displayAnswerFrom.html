@@ -4,67 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Answers</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/answer.css' %}">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#icon').click(function () {
+                $('ul').toggleClass('show');
+            });
+        });
+    </script>
+    <title>Add Answer</title>
 </head>
 
 <body>
-    <div class="sidenav">
-        <a href="/">
-            <h1 id="label">E<span id="word">by</span>S</h1>
-        </a>
-        <div class="links">
-            <a href="/">Home</a>
-            <a href="/aboutus">About Us</a>
-            <a href="/displayAllQuestion">Qs & As</a>
-            <a href="#">Article</a>
-            <a href="#">LogOut</a>
+    <main>
+        <nav>
+            <label class="logo">KnowledgeSphere</label>
+            <ul>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/displayAboutUs">About us</a></li>
+                <li><a href="displayAllQuestion">Question and Answer</a></li>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Sign in</a></li>
+            </ul>
+            <label id="icon">
+                <i class="fa fa-bars"></i>
+            </label>
+        </nav>
+        <section>
+            <header>
+                <div>
+                    <h1>Answer the Question</h1>
+                    <h3>Answering questions allows individuals to share their knowledge, expertise, and experiences with
+                        others. It gives them an opportunity to contribute to the collective wisdom of the community and
+                        help others seeking information or solutions.</h3>
+                </div>
+            </header>
+        </section>
+        <div class="container">
+            <div class="content">
+                <nav>
+                    <label class="logo">Welcome, {{user.username}}</label>
+                    <ul>
+                        <li><a href="#">Users</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                    <label id="icon">
+                        <i class="fa fa-bars"></i>
+                    </label>
+                    <hr>
+                </nav>
+                <div class="questionForm">
+                    {% for comment in questions.comments.all%}
+                    <div class="box">
+                        <h3>This comment created by {{comment.user.username}} at {{comment.created_at}}
+                            {% if comment.user == questions.user %}
+                            <a href="/delete/{{comment.id}}/{{questions.id}}">Delete</a> <a href="/edit/{{comment.id}}/{{questions.id}}">Edit</a>
+                            {% endif %}
+                        </h3>
+                        <p>{{comment.comment_text}}</p>
+                        <h3><a href="#">Comment</a></h3>
+                    </div>
+                    {% endfor%}
+                    <div class="box">
+                        <form action="/addAnswer/{{questions.id}}" method="post">
+                            {% csrf_token %}
+                            <table>
+                                <tr>
+                                    {{questions.message_text}}
+                                </tr>
+                            </table>
+                            <textarea type="text" name="comment_text" placeholder="Answer"></textarea>
+                            <input type="submit" value="Answer" class="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br><br><br><br><br>
-        <h3>Welcome {{user.username}}</h3>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
-    <div class="container">
-        <h1>{{question.message_text}}</h1>
-        <h2>Description</h2>
-        <p>{{question.desc}}</p>
-
-        {% for comment in question.comments.all%}
-        <div class="box">
-            <h3>Answer by {{comment.user.username}}:</h3>
-            <h5>Created at {{comment.created_at}}</h5>
-            <ol>
-                <li>{{comment.comment_text}}</li>
-            </ol>
-            {% if comment.user.id != user.id %}
-            <form action="modifiy">
-                {% csrf_token %}
-                <input class="btn" type="submit" value="Post" name="addComment">
-            </form>
-            {% endif %}
-            {% if comment.user.id == user.id %}
-            <a href="/displayEdit/{{comment.id}}"><input class="btn" type="submit" value="Edit"></a>
-            <a href="/delete/{{comment.id}}/{{question.id}}"><input class="btn" type="submit" value="Delete"></a>
-            {% endif %}
-        </div>
-        {% endfor %}
-
-        <div class="box">
-            <form action="/addAnswer/{{question.id}}" method="post">
-                {% csrf_token %}
-                <table>
-                    <tr>
-                        <td>Your answer</td>
-                    </tr>
-                </table>
-                <textarea type="text" name="comment_text" placeholder="Write your answer"></textarea>
-                <input class="btn" type="submit" value="Answer">
-            </form>
-        </div>
-    </div>
-
-
+    </main>
 </body>
 
 </html>
