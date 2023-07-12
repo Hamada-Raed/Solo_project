@@ -27,6 +27,7 @@ urlpatterns = [
     path('displayEditFromQuestion/<question_id>', views.displayEditFromQuestion),
     path('editQuestion/<question_id>', views.editQuestion), 
     path('displayUsers', views.displayUsers),
+    path('distroy', views.distroy)
     
     
 

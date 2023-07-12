@@ -52,8 +52,8 @@
                     <label class="logo">Welcome, {{user.username}}</label>
                     <ul>
                         <li><a href="/displayFormQuestion" class="active">Ask Question</a></li>
-                        <li><a href="#">Users</a></li>
-                        <li><a href="#">Feedback</a></li>
+                        <li><a href="/displayUsers">Users</a></li>
+                        <li><a href="/distroy">Log Out</a></li>
                     </ul>
                     <label id="icon">
                         <i class="fa fa-bars"></i>
@@ -63,8 +63,7 @@
                 {% for question in questions%}
                 <div class="question">
                     <ul class="listQuestion">
-                        <h2>Created by: {{question.user.username}}, {{question.created_at}}
-                        </h2>
+                        <h2>Created by: {{question.user.username}}, {{question.created_at}} </h2>
                         <a href="/displayAnswerFrom/{{question.id}}">
                             <h3>{{question.message_text}}</h3>
                         </a>

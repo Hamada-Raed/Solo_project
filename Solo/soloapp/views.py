@@ -87,10 +87,12 @@ def addQuestion(request):
 ####################### End Question part ########################
 def displayAnswerFrom(request, question_id):
     orderedComment = Comment.objects.order_by('-created_at')
+    countComment = len(orderedComment)
     content = {
         'questions' : Question.objects.get(id= question_id),
         'comments' : orderedComment,
         'user' : User.objects.get(id= request.session['user']),
+        'countComment' : countComment,
     }
     return render(request, 'displayAnswerFrom.html', content)
 
@@ -147,8 +149,15 @@ def editQuestion(request, question_id):
 ################This is a port of code to post message ############ 
 
 def displayUsers(request): 
+    numberOfUsers = len(User.objects.all())
     content = {
         'users' : User.objects.all(),
-        'user' : User.objects.get(id=request.session['user'])
+        'user' : User.objects.get(id=request.session['user']), 
+        'count' : numberOfUsers
     }
     return render(request, 'displayUsers.html', content)
+
+def distroy(request): 
+    del request.session['user'] 
+    del request.session['username']
+    return('/')
