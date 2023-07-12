@@ -26,9 +26,8 @@
             <ul>
                 <li><a href="/" class="active">Home</a></li>
                 <li><a href="/displayAboutUs">About us</a></li>
-                <li><a href="displayAllQuestion">Question and Answer</a></li>
-                <li><a href="#">Feedback</a></li>
-                <li><a href="#">Sign in</a></li>
+                <li><a href="/displayAllQuestion">Question and Answer</a></li>
+                <li><a href="/signin">Sign in</a></li>
             </ul>
             <label id="icon">
                 <i class="fa fa-bars"></i>
@@ -49,8 +48,8 @@
                 <nav>
                     <label class="logo">Welcome, {{user.username}}</label>
                     <ul>
-                        <li><a href="#">Users</a></li>
-                        <li><a href="#">Feedback</a></li>
+                        <li><a href="/displayUsers">Users</a></li>
+                        <li><a href="#">Log out</a></li>
                     </ul>
                     <label id="icon">
                         <i class="fa fa-bars"></i>
@@ -61,12 +60,17 @@
                     {% for comment in questions.comments.all%}
                     <div class="box">
                         <h3>This comment created by {{comment.user.username}} at {{comment.created_at}}
-                            {% if comment.user == questions.user %}
-                            <a href="/delete/{{comment.id}}/{{questions.id}}">Delete</a> <a href="/edit/{{comment.id}}/{{questions.id}}">Edit</a>
+                            {% if comment.user.id == user.id %}
+                            <a href="/delete/{{comment.id}}/{{questions.id}}">Delete</a>
+                            <a href="/displayEditComment/{{comment.id}}/{{questions.id}}">Edit</a>
                             {% endif %}
                         </h3>
-                        <p>{{comment.comment_text}}</p>
-                        <h3><a href="#">Comment</a></h3>
+                        <p class="commentText">{{comment.comment_text}}</p>
+                        <form action="/PostComment" method="post" class="commentForm">
+                            {% csrf_token %}
+                            <input type="submit" value="Post Comment" class="submit">
+                            <textarea name="message_post" placeholder="Post comment"></textarea>
+                        </form>
                     </div>
                     {% endfor%}
                     <div class="box">
@@ -74,9 +78,27 @@
                             {% csrf_token %}
                             <table>
                                 <tr>
-                                    {{questions.message_text}}
+                                    <h3>This question created by {{questions.user.username}}, {{questions.created_at}}
+                                        {% if questions.user.id == user.id %}
+                                        <a href="/deleteQuestion/{{questions.id}}">Delete</a>
+                                        <a href="/displayEditFromQuestion/{{questions.id}}">Edit</a>
+                                        {% endif %}
+                                    </h3>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3>Title:</h3>
+                                        <h4>{{questions.message_text}}</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3>Description:</h3>
+                                        <h5>{{questions.desc}}</h5>
+                                    </td>
                                 </tr>
                             </table>
+
                             <textarea type="text" name="comment_text" placeholder="Answer"></textarea>
                             <input type="submit" value="Answer" class="submit">
                         </form>

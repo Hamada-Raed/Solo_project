@@ -26,9 +26,8 @@
             <ul>
                 <li><a href="/" class="active">Home</a></li>
                 <li><a href="/displayAboutUs">About us</a></li>
-                <li><a href="displayAllQuestion">Question and Answer</a></li>
-                <li><a href="#">Feedback</a></li>
-                <li><a href="#">Sign in</a></li>
+                <li><a href="/displayAllQuestion">Question and Answer</a></li>
+                <li><a href="/signin">Sign in</a></li>
             </ul>
             <label id="icon">
                 <i class="fa fa-bars"></i>
@@ -38,7 +37,6 @@
             <header>
                 <div>
                     <h1>Edit your Question</h1>
-                    <h3>{{questions.message_text}}</h3>
                 </div>
             </header>
         </section>
@@ -59,7 +57,9 @@
                     <div class="box">
                         <form action="/editQuestion/{{questions.id}}" method="post">
                             {% csrf_token %}
-                            <textarea type="text" name="comment_text" placeholder="Edit your question"></textarea>
+                            <h4>Title: {{questions.message_text}}</h4>
+                            <textarea type="text" name="message_text" placeholder="Edit your question"></textarea>
+                            <h4>Description: {{questions.desc}}</h4>
                             <textarea type="text" name="desc" placeholder="Edit your description"></textarea>
                             <input type="submit" value="Edit" class="submit">
                         </form>

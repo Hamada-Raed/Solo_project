@@ -86,9 +86,10 @@ def addQuestion(request):
 
 ####################### End Question part ########################
 def displayAnswerFrom(request, question_id):
+    orderedComment = Comment.objects.order_by('-created_at')
     content = {
         'questions' : Question.objects.get(id= question_id),
-        'comments' : Comment.objects.all(),
+        'comments' : orderedComment,
         'user' : User.objects.get(id= request.session['user']),
     }
     return render(request, 'displayAnswerFrom.html', content)
@@ -110,16 +111,44 @@ def delete(request, comment_id, question_id):
         dell.delete()
         return redirect('/displayAnswerFrom/'+str(question_id))
 
-def displayEditForm(request, comment_id, question_id): 
+def displayEditComment(request, comment_id, question_id): 
     content = {
         'user' : User.objects.get(id=request.session['user']),
         'comments' : Comment.objects.get(id=comment_id),
         'questions' : Question.objects.get(id=question_id),
     }
-    return render(request, 'displayEdit.html', content)
+    return render(request, 'EditCommet.html', content)
+
+def editComment(request, comment_id, question_id): 
+    selected = Comment.objects.get(id=comment_id)
+    selected.comment_text = request.POST['comment_text']
+    selected.save()
+    return redirect('/displayAnswerFrom/'+str(question_id))
+
+def deleteQuestion(request, question_id):
+    dell = Question.objects.get(id=question_id)
+    dell.delete()
+    return redirect('/displayAllQuestion')
+
+def displayEditFromQuestion(request, question_id): 
+    content = {
+        'user' : User.objects.get(id=request.session['user']),
+        'questions' : Question.objects.get(id=question_id),
+    }
+    return render(request, 'displayEditFromQuestion.html', content)
 
 def editQuestion(request, question_id): 
     selected = Question.objects.get(id= question_id)
-    selected.message_text = request.POST['comment_text']
+    selected.message_text = request.POST['message_text']
+    selected.desc = request.POST['desc']
+    selected.save()
+    return redirect('/displayAllQuestion')
 
+################This is a port of code to post message ############ 
 
+def displayUsers(request): 
+    content = {
+        'users' : User.objects.all(),
+        'user' : User.objects.get(id=request.session['user'])
+    }
+    return render(request, 'displayUsers.html', content)

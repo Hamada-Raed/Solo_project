@@ -129,7 +129,6 @@ h1{
   width: 100%;
   margin: 20px auto; 
   border: 1px solid white;
-  border-radius: 30px;
 }
 .question h2{
   color: white;
@@ -140,8 +139,5 @@ h1{
   margin: 10px 60px;
 }
 footer{
-  height: 100px;
-  background:linear-gradient(#027579, #650d0d);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #34495e;
 }

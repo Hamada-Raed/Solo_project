@@ -2,7 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    # display
+    #display
     path('', views.index), 
     path('displayAboutUs', views.displayAboutUs), 
     path('success' ,views.success),
@@ -18,10 +18,15 @@ urlpatterns = [
     #add answer process
     path('displayAnswerFrom/<question_id>', views.displayAnswerFrom), 
     path('addAnswer/<question_id>', views.addAnswer),
-    #modifiy ex edit and delete
-    path('delete/<comment_id>/<question_id>', views.delete),
-    path('edit/<comment_id>/<question_id>', views.displayEditForm), 
+    #modifiy Delete Questions and Comment 
+    path('delete/<comment_id>/<question_id>', views.delete), #delete comment
+    path('displayEditComment/<comment_id>/<question_id>', views.displayEditComment), 
+    path('editComment/<comment_id>/<question_id>', views.editComment), #Edit comment
+    #Edit Quesions and Comment
+    path('deleteQuestion/<question_id>', views.deleteQuestion),
+    path('displayEditFromQuestion/<question_id>', views.displayEditFromQuestion),
     path('editQuestion/<question_id>', views.editQuestion), 
+    path('displayUsers', views.displayUsers),
     
     
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/answer.css' %}">
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -16,7 +16,7 @@
             });
         });
     </script>
-    <title>KnowledgeSphere</title>
+    <title>Edit Comment</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
             <ul>
                 <li><a href="/" class="active">Home</a></li>
                 <li><a href="/displayAboutUs">About us</a></li>
-                <li><a href="displayAllQuestion">Question and Answer</a></li>
+                <li><a href="/displayAllQuestion">Question and Answer</a></li>
                 <li><a href="/signin">Sign in</a></li>
             </ul>
             <label id="icon">
@@ -36,11 +36,7 @@
         <section>
             <header>
                 <div>
-                    <h1>Share & grow the world's knowledge</h1>
-                    <h3>We want to connect the people who have knowledge to people who need it, to bring</h3>
-                    <h3>together people with different perspectives so they can understand each other better,
-                    </h3>
-                    <h3>and to empower everyone to share their knowledge </h3>
+                    <h1>Edit your Comment</h1>
                 </div>
             </header>
         </section>
@@ -49,33 +45,25 @@
                 <nav>
                     <label class="logo">Welcome, {{user.username}}</label>
                     <ul>
-                        <li><a href="/" class="active">Recent Questions</a></li>
-                        <li><a href="/displayUsers">Users</a></li>
-                        <li><a href="#">Log Out</a></li>
+                        <li><a href="#">Users</a></li>
+                        <li><a href="#">Feedback</a></li>
                     </ul>
                     <label id="icon">
                         <i class="fa fa-bars"></i>
                     </label>
                     <hr>
                 </nav>
-                {% for question in questions%}
-                <div class="question">
-                    <ul class="listQuestion">
-                        <h2>Created by: {{question.user.username}}, {{question.created_at}}</h2>
-                        <a href="/displayAnswerFrom/{{question.id}}">
-                            <h3>{{question.message_text}}</h3>
-                        </a>
-                    </ul>
+                <div class="questionForm">
+                    <div class="box">
+                        <form action="/editComment/{{comments.id}}/{{questions.id}}" method="post">
+                            {% csrf_token %}
+                            <h3>Comment:</h3>
+                            <h4>{{comments.comment_text}}</h4>
+                            <textarea type="text" name="comment_text" placeholder="Edit your comment"></textarea>
+                            <input type="submit" value="Edit" class="submit">
+                        </form>
+                    </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </main>
-    <footer>
-
-    </footer>
-
-
-</body>
-
-</html>

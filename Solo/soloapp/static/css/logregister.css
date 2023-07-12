@@ -1,11 +1,13 @@
 *{
     margin: 0;
     font-family:sans-serif;
+    color: white;
+    font-size: 14px;
 }
 .hero{
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(rgba(13, 211, 27, 0.708),rgba(205, 48, 48, 0.84));
+    background-image: linear-gradient(rgba(118, 80, 4, 0.708),rgba(10, 67, 101, 0.84),rgba(11, 162, 170, 0.84),rgba(3, 68, 119, 0.84));
     background-position: center;
     background-size: cover;
     position: absolute;
@@ -15,7 +17,7 @@
     height: 480px;
     position: relative;
     margin: 6% auto;
-    background: rgb(47, 26, 167);
+    background: rgb(1, 135, 135);
     padding: 5px ;
     overflow: hidden;
     border-radius: 30px;
